@@ -3,489 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nytsai's Piano Sheets &amp; Works</title>
+  <title>Nytsai's Piano Sheets &amp; Works</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --ink: #161616;
-      --muted: #8d8d8d;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      background: #fff;
-      color: var(--ink);
-      overscroll-behavior: none;
-      overflow-anchor: none;
-    }
-
-    body {
-      font-family: "Noto Serif SC", "Songti SC", serif;
-      min-height: 100vh;
-    }
-
-    #stage {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    #grid {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      display: block;
-    }
-
-    .hero {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-weight: 400;
-      font-size: clamp(1.35rem, 3.1vw, 2.35rem);
-      letter-spacing: 0.14em;
-      line-height: 1.35;
-      color: var(--ink);
-      padding-left: 0.14em;
-      max-width: 92vw;
-      transform: translateY(-10px);
-    }
-
-    .hero-links {
-      margin-top: 1.25em;
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: clamp(0.82rem, 1.35vw, 1.05rem);
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      padding-left: 0.18em;
-      pointer-events: auto;
-    }
-
-    .hero-links a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.25s ease;
-    }
-
-    .hero-links a:hover {
-      color: var(--ink);
-    }
-
-    .hero-links .sep {
-      margin: 0 0.55em;
-      font-style: normal;
-      opacity: 0.55;
-    }
-
-    .copyright {
-      position: absolute;
-      left: 1.15rem;
-      bottom: 1.05rem;
-      z-index: 4;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      color: #b4b4b4;
-      pointer-events: none;
-      font-family: "Cormorant Garamond", "Times New Roman", serif;
-    }
-
-    .hint {
-      position: absolute;
-      left: 50%;
-      bottom: 2.4rem;
-      z-index: 2;
-      transform: translateX(-50%);
-      pointer-events: none;
-      color: var(--ink);
-    }
-
-    .hint-inner {
-      display: block;
-      animation: breathe 2.8s ease-in-out infinite;
-    }
-
-    .hint svg {
-      display: block;
-    }
-
-    @keyframes breathe {
-      0%, 100% {
-        opacity: 0.14;
-        transform: translateY(0);
-      }
-      50% {
-        opacity: 0.52;
-        transform: translateY(6px);
-      }
-    }
-
-    #score {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    #score svg {
-      display: block;
-      width: min(94vw, calc(92vh * 210 / 297));
-      height: auto;
-      max-height: 92vh;
-      overflow: visible;
-    }
-
-    #score svg .fly {
-      transform-box: fill-box;
-      transform-origin: 50% 50%;
-    }
-
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #fff;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #e2e2e2;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hint-inner {
-        animation: none;
-        opacity: 0.28;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-  <div id="stage">
-    <canvas id="grid" aria-hidden="true"></canvas>
-    <div class="hero" id="hero">
-      <h1>Nytsai's Piano Sheets &amp; Works</h1>
-      <p class="hero-links">
-        <a href="#">Bilibili</a><span class="sep">|</span><a href="#">小红书</a><span class="sep">|</span><a href="#">Youtube</a><span class="sep">|</span><a href="#">X</a>
-      </p>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <div id="stage">
+        <canvas id="grid" aria-hidden="true"></canvas>
+        <div class="hero" id="hero">
+          <h1>Nytsai's Piano Sheets &amp; Works</h1>
+          <p class="hero-links">
+            <a href="#">Bilibili</a><span class="sep">|</span><a href="#">小红书</a><span class="sep">|</span><a href="#">Youtube</a><span class="sep">|</span><a href="#">X</a>
+          </p>
+        </div>
+        <div class="hint" id="hint" aria-hidden="true">
+          <span class="hint-inner">
+            <svg viewBox="0 0 12 8" width="11" height="8">
+              <path d="M6 7.2L0.8 0.8h10.4L6 7.2z" fill="currentColor" />
+            </svg>
+          </span>
+        </div>
+        <div id="about-score">
+          <div id="score"></div>
+          <p class="score-caption"><em>Ripples of Past Reverie</em> by Nagiha</p>
+        </div>
+        <div id="about-copy">
+          <h2>你猜这个人</h2>
+          <p class="about-sub">Nytsai</p>
+          <hr class="about-rule" />
+          <div class="about-body">
+            <p class="lead"><span>绘谱雕版师</span><span>东京艺术大学作曲科毕业</span></p>
+            <p>从大学在学期间开始，便在大型乐谱出版社从事乐谱制作工作，并于2017年独立。</p>
+            <p>专门从事绘谱雕版、乐谱编辑、校对与审阅、DTP等版面制作工作。</p>
+          </div>
+        </div>
+        <section id="works" class="page-title"><h2>作品</h2></section>
+        <section id="service" class="page-title"><h2>服务</h2></section>
+        <section id="contact" class="page-title"><h2>联系</h2></section>
+        <nav id="wheel" aria-label="目录">
+          <svg class="wheel-bg" viewBox="0 0 192 544" preserveAspectRatio="none" aria-hidden="true">
+            <path d="" />
+          </svg>
+          <div class="wheel-inner">
+            <button class="wheel-item" type="button" data-page="0"><span class="zh">主页</span><span class="en">Home</span></button>
+            <button class="wheel-item" type="button" data-page="1"><span class="zh">简介</span><span class="en">About</span></button>
+            <button class="wheel-item" type="button" data-page="2"><span class="zh">作品</span><span class="en">Works</span></button>
+            <button class="wheel-item" type="button" data-page="3"><span class="zh">服务</span><span class="en">Service</span></button>
+            <button class="wheel-item" type="button" data-page="4"><span class="zh">联系</span><span class="en">Contact</span></button>
+          </div>
+        </nav>
+        <p class="copyright">Copyright © 2026 Nytsai Piano Sheets</p>
+      </div>
     </div>
-    <div class="hint" id="hint" aria-hidden="true">
-      <span class="hint-inner">
-        <svg viewBox="0 0 12 8" width="11" height="8">
-          <path d="M6 7.2L0.8 0.8h10.4L6 7.2z" fill="currentColor" />
-        </svg>
-      </span>
-    </div>
-    <div id="score"></div>
-    <p class="copyright">Copyright © 2026 Nytsai Piano Sheets</p>
   </div>
 
   <script src="score-data.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-
-    document.querySelectorAll(".hero-links a").forEach((a) => {
-      a.addEventListener("click", (event) => event.preventDefault());
-    });
-
-    const NS = "http://www.w3.org/2000/svg";
-    const FRAME = new Set([
-      "StaffLines",
-      "Bracket",
-      "BarLine",
-      "KeySig",
-      "MeasureNumber",
-      "Clef",
-    ]);
-
-    const canvas = document.getElementById("grid");
-    const ctx = canvas.getContext("2d");
-    const mouse = { x: innerWidth / 2, y: innerHeight / 2, tx: innerWidth / 2, ty: innerHeight / 2 };
-
-    function resizeGrid() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = innerWidth * dpr;
-      canvas.height = innerHeight * dpr;
-      canvas.style.width = innerWidth + "px";
-      canvas.style.height = innerHeight + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function canvasVisible() {
-      const raw = gsap.getProperty(canvas, "opacity");
-      const opacity = raw === "" || raw == null ? 1 : Number(raw);
-      return opacity > 0.02 && canvas.style.visibility !== "hidden";
-    }
-
-    function drawGrid(time) {
-      requestAnimationFrame(drawGrid);
-      if (!canvasVisible()) {
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-        return;
-      }
-
-      mouse.x += (mouse.tx - mouse.x) * 0.1;
-      mouse.y += (mouse.ty - mouse.y) * 0.1;
-
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-      const gap = 28;
-      const cols = Math.ceil(innerWidth / gap) + 1;
-      const rows = Math.ceil(innerHeight / gap) + 1;
-      const t = (time || 0) * 0.00025;
-      const radius = Math.min(innerWidth, innerHeight) * 0.34;
-
-      ctx.strokeStyle = "rgba(18, 18, 18, 0.045)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let i = 0; i < cols; i++) {
-        ctx.moveTo(i * gap, 0);
-        ctx.lineTo(i * gap, innerHeight);
-      }
-      for (let j = 0; j < rows; j++) {
-        ctx.moveTo(0, j * gap);
-        ctx.lineTo(innerWidth, j * gap);
-      }
-      ctx.stroke();
-
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          let x = i * gap;
-          let y = j * gap;
-          const dx = x - mouse.x;
-          const dy = y - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          const influence = Math.max(0, 1 - dist / radius);
-          const eased = influence * influence * (3 - 2 * influence);
-          const angle = Math.atan2(dy, dx) || 0;
-          x += Math.cos(angle) * eased * 18;
-          y += Math.sin(angle) * eased * 18;
-
-          const major = i % 4 === 0 || j % 4 === 0;
-          const shimmer = 0.84 + 0.16 * Math.sin(t + i * 0.35 + j * 0.41);
-          const alpha = (major ? 0.22 : 0.12) * shimmer + eased * 0.62;
-          const size = (major ? 1.7 : 1.25) + eased * 2.1;
-
-          ctx.fillStyle = `rgba(18, 18, 18, ${alpha})`;
-          ctx.fillRect(x - size / 2, y - size / 2, size, size);
-        }
-      }
-    }
-
-    window.addEventListener("pointermove", (e) => {
-      mouse.tx = e.clientX;
-      mouse.ty = e.clientY;
-    }, { passive: true });
-
-    window.addEventListener("resize", resizeGrid);
-    resizeGrid();
-    requestAnimationFrame(drawGrid);
-
-    function strokeLength(el) {
-      try {
-        return el.getTotalLength();
-      } catch (err) {
-        return 0;
-      }
-    }
-
-    function wrap(el) {
-      const g = document.createElementNS(NS, "g");
-      g.classList.add("fly");
-      el.parentNode.insertBefore(g, el);
-      g.appendChild(el);
-      return g;
-    }
-
-    function makeMotion() {
-      const dir = Math.random() < 0.5 ? -1 : 1;
-      return {
-        x: dir * (280 + Math.random() * 460),
-        y: 16 + Math.random() * 32,
-        scale: 1.24 + Math.random() * 0.36,
-      };
-    }
-
-    async function init() {
-      const markup = window.SCORE_SVG;
-      if (!markup) {
-        console.error("Score SVG data missing.");
-        return;
-      }
-      const score = document.getElementById("score");
-      score.innerHTML = markup;
-      const svg = score.querySelector("svg");
-      svg.removeAttribute("width");
-      svg.removeAttribute("height");
-      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-
-      const frameLines = [];
-      const frameFills = [];
-      const flyItems = [];
-
-      [...svg.children].forEach((el) => {
-        if (el.tagName === "title" || el.tagName === "desc") return;
-        const cls = el.getAttribute("class") || "";
-        if (FRAME.has(cls)) {
-          if (cls === "StaffLines" || cls === "BarLine") frameLines.push(el);
-          else frameFills.push(el);
-        } else {
-          flyItems.push(el);
-        }
-      });
-
-      const lineLens = frameLines.map((el) => {
-        const len = strokeLength(el);
-        gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
-        return len;
-      });
-
-      const measured = flyItems.map((el) => {
-        const b = el.getBBox();
-        return { el, x: b.x + b.width / 2, y: b.y + b.height / 2, w: b.width };
-      });
-      measured.sort((a, b) => a.x - b.x || a.y - b.y);
-
-      const clustered = [];
-      measured.forEach((item) => {
-        const last = clustered[clustered.length - 1];
-        const isolated = item.w > 96;
-        if (!isolated && last && Math.abs(item.x - last.x) < 34) {
-          last.items.push(item);
-          last.x = last.items.reduce((s, n) => s + n.x, 0) / last.items.length;
-        } else {
-          clustered.push({ x: item.x, motion: makeMotion(), items: [item] });
-        }
-      });
-
-      const flies = [];
-      clustered.forEach((cluster) => {
-        cluster.items.sort((a, b) => a.y - b.y);
-        cluster.items.forEach((item) => {
-          const g = wrap(item.el);
-          flies.push({
-            el: g,
-            x: item.x,
-            y: item.y,
-            fromX: cluster.motion.x,
-            fromY: cluster.motion.y,
-            fromScale: cluster.motion.scale,
-          });
-        });
-      });
-      flies.sort((a, b) => a.x - b.x || a.y - b.y);
-
-      gsap.set(frameFills, { autoAlpha: 0 });
-      flies.forEach((item) => {
-        gsap.set(item.el, {
-          x: item.fromX,
-          y: item.fromY,
-          scale: item.fromScale,
-          autoAlpha: 0,
-          transformOrigin: "50% 50%",
-          force3D: false,
-        });
-      });
-      gsap.set(score, { autoAlpha: 1 });
-      window.scrollTo(0, 0);
-
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) {
-        frameLines.forEach((el, i) => gsap.set(el, { strokeDashoffset: 0, strokeDasharray: lineLens[i] }));
-        gsap.set(frameFills, { autoAlpha: 1 });
-        gsap.set(flies.map((f) => f.el), { x: 0, y: 0, scale: 1, autoAlpha: 1 });
-        gsap.set(["#hero", "#hint", canvas], { autoAlpha: 0 });
-        return;
-      }
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#stage",
-          start: "top top",
-          end: () => "+=" + Math.round(window.innerHeight * 5.8),
-          pin: true,
-          scrub: 0.65,
-          anticipatePin: 1,
-        },
-      });
-
-      tl.fromTo("#hero", { y: 0, autoAlpha: 1 }, { y: -56, autoAlpha: 0, duration: 1, ease: "power2.in" }, 0);
-      tl.fromTo("#hint", { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.45, ease: "power2.in" }, 0);
-      tl.fromTo(canvas, { autoAlpha: 1 }, {
-        autoAlpha: 0,
-        duration: 1,
-        ease: "power2.in",
-      }, 0);
-
-      tl.fromTo(frameLines, {
-        strokeDashoffset: (i) => lineLens[i],
-      }, {
-        strokeDashoffset: 0,
-        duration: 1.25,
-        ease: "power2.inOut",
-        stagger: { amount: 0.4, from: "start" },
-        immediateRender: false,
-      }, 0.18);
-
-      tl.fromTo(frameFills, { autoAlpha: 0 }, {
-        autoAlpha: 1,
-        duration: 0.55,
-        stagger: 0.016,
-        ease: "power2.out",
-        immediateRender: false,
-      }, 0.55);
-
-      tl.fromTo(flies.map((f) => f.el), {
-        x: (i) => flies[i].fromX,
-        y: (i) => flies[i].fromY,
-        scale: (i) => flies[i].fromScale,
-        autoAlpha: 0,
-      }, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        autoAlpha: 1,
-        duration: 0.95,
-        ease: "power3.out",
-        stagger: { amount: 6.4, from: "start" },
-        immediateRender: false,
-        force3D: false,
-      }, 1.15);
-
-      tl.to({}, { duration: 0.35 });
-
-      requestAnimationFrame(() => window.scrollTo(0, 0));
-    }
-
-    init().catch((err) => console.error(err));
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/wheel.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
