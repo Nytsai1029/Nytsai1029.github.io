@@ -1,6 +1,7 @@
 window.App = window.App || {};
 
 App.boot = function () {
+  if (typeof gsap === "undefined") return;
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother, Observer);
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
@@ -20,4 +21,3 @@ App.boot = function () {
 };
 
 App.boot();
-App.intro.start();

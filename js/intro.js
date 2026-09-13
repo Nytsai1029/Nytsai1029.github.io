@@ -3,10 +3,11 @@ window.App = window.App || {};
 App.intro = {
   start() {
     const root = document.getElementById("intro");
-    if (!root) return;
+    if (!root || this.started) return;
+    this.started = true;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
+    if (reduce || typeof gsap === "undefined" || !App.INTRO) {
       this.release(root);
       return;
     }
@@ -54,10 +55,13 @@ App.intro = {
 
     const waitFonts = () => {
       if (!document.fonts || !document.fonts.ready) return Promise.resolve();
-      return document.fonts.ready.catch(() => {});
+      return Promise.race([
+        document.fonts.ready.catch(() => {}),
+        new Promise((resolve) => setTimeout(resolve, 1800)),
+      ]);
     };
 
-    const timeout = new Promise((resolve) => setTimeout(resolve, 8000));
+    const timeout = new Promise((resolve) => setTimeout(resolve, 5000));
 
     Promise.race([Promise.all([waitLoad(), waitFonts()]), timeout]).then(() => {
       ready = true;

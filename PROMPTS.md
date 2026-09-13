@@ -239,3 +239,18 @@ commit
 clone git@github.com:Nytsai1029/Nytsai1029.github.io.git
 并将该网页部署到～/score
 git仓库合并
+
+### 11:14
+
+pages怎么样隐藏仓库但是页面free
+
+### 11:20
+
+更新公有之后pages未部署
+
+### 11:25
+
+部署后访问没有任何资源被加载，只有一个进度为0的进度条
+
+
+
