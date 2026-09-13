@@ -12,11 +12,18 @@ App.grid = {
   canvas: null,
   ctx: null,
   reduce: false,
+  inkRgb: "18, 18, 18",
+
+  syncInk() {
+    const rgb = getComputedStyle(document.documentElement).getPropertyValue("--grid-rgb").trim();
+    this.inkRgb = rgb || "18, 18, 18";
+  },
 
   start() {
     this.canvas = document.getElementById("grid");
     this.ctx = this.canvas.getContext("2d");
     this.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.syncInk();
     this.resize();
     window.addEventListener("resize", () => this.resize());
     window.addEventListener("pointermove", (e) => {
@@ -77,7 +84,7 @@ App.grid = {
     const waveAmp = this.reduce ? 0 : G.waveAmp;
     const phaseT = (time || 0) * omega;
 
-    ctx.strokeStyle = `rgba(18, 18, 18, ${G.line})`;
+    ctx.strokeStyle = `rgba(${this.inkRgb}, ${G.line})`;
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let i = 0; i < cols; i++) {
@@ -117,7 +124,7 @@ App.grid = {
           * (1 - eased * G.nearDim);
         const size = (major ? 1.7 : 1.25) + eased * 2.1 + crest * 0.35;
 
-        ctx.fillStyle = `rgba(18, 18, 18, ${alpha})`;
+        ctx.fillStyle = `rgba(${this.inkRgb}, ${alpha})`;
         ctx.fillRect(x - size / 2, y - size / 2, size, size);
       }
     }

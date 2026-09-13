@@ -44,6 +44,8 @@ App.i18n = {
       "page.service": "服务",
       "page.contact": "联系",
       "lang.aria": "选择语言",
+      "theme.toDark": "切换到深色主题",
+      "theme.toLight": "切换到浅色主题",
     },
     "zh-Hant": {
       "nav.label": "目錄",
@@ -71,6 +73,8 @@ App.i18n = {
       "page.service": "服務",
       "page.contact": "聯繫",
       "lang.aria": "選擇語言",
+      "theme.toDark": "切換到深色主題",
+      "theme.toLight": "切換到淺色主題",
     },
     en: {
       "nav.label": "Menu",
@@ -98,6 +102,8 @@ App.i18n = {
       "page.service": "Service",
       "page.contact": "Contact",
       "lang.aria": "Choose language",
+      "theme.toDark": "Switch to dark theme",
+      "theme.toLight": "Switch to light theme",
     },
     ja: {
       "nav.label": "目次",
@@ -125,6 +131,8 @@ App.i18n = {
       "page.service": "サービス",
       "page.contact": "連絡",
       "lang.aria": "言語を選択",
+      "theme.toDark": "ダークテーマに切り替え",
+      "theme.toLight": "ライトテーマに切り替え",
     },
     ko: {
       "nav.label": "목차",
@@ -152,6 +160,8 @@ App.i18n = {
       "page.service": "서비스",
       "page.contact": "연락",
       "lang.aria": "언어 선택",
+      "theme.toDark": "어두운 테마로 전환",
+      "theme.toLight": "밝은 테마로 전환",
     },
   },
   roles: {
@@ -254,6 +264,7 @@ App.i18n = {
     if (App.works && App.works.relocalize) App.works.relocalize();
     if (App.era && App.era.relocalize) App.era.relocalize();
     if (App.lang && App.lang.markCurrent) App.lang.markCurrent();
+    if (App.theme && App.theme.syncAria) App.theme.syncAria();
   },
 
   set(locale) {

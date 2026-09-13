@@ -4,11 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nytsai's Piano Sheets &amp; Works</title>
+  <script>
+    try {
+      if (localStorage.getItem("score-theme") === "dark") {
+        document.documentElement.classList.add("theme-dark");
+        document.documentElement.style.colorScheme = "dark";
+      }
+    } catch (err) {}
+  </script>
   <style>
+    :root { --page: #ffffff; --muted: #8d8d8d; --intro-track: #e8e8e8; }
+    html.theme-dark { --page: #161616; --intro-track: #333333; }
     html.intro-lock, html.intro-lock body { overflow: hidden; height: 100%; }
-    #intro { position: fixed; inset: 0; z-index: 200; background: #fff; }
-    .intro-bar { position: absolute; left: 50%; top: 50%; width: 70vw; height: 10px; background: #e8e8e8; transform: translate(-50%, -50%); overflow: hidden; }
-    .intro-bar-fill { display: block; width: 100%; height: 100%; background: #8d8d8d; transform: scaleX(0); transform-origin: left center; }
+    #intro { position: fixed; inset: 0; z-index: 200; background: var(--page); }
+    .intro-bar { position: absolute; left: 50%; top: 50%; width: 70vw; height: 10px; background: var(--intro-track); transform: translate(-50%, -50%); overflow: hidden; }
+    .intro-bar-fill { display: block; width: 100%; height: 100%; background: var(--muted); transform: scaleX(0); transform-origin: left center; }
   </style>
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/main.css" />
@@ -19,6 +29,7 @@
     <div class="intro-line"></div>
     <div class="intro-bar"><span class="intro-bar-fill"></span></div>
   </div>
+  <div id="theme-veil" aria-hidden="true"></div>
   <div id="smooth-wrapper">
     <div id="smooth-content">
       <div id="stage">
@@ -103,6 +114,22 @@
         <div class="site-meta">
           <div id="lang" class="lang">
             <div class="lang-sheet">
+              <button id="theme" type="button" aria-pressed="false">
+                <svg class="theme-mark" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <g class="theme-rays" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="square">
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(45 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(90 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(135 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(180 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(225 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(270 12 12)" />
+                    <line x1="12" y1="1.5" x2="12" y2="4.8" transform="rotate(315 12 12)" />
+                  </g>
+                  <circle class="theme-core" cx="12" cy="12" r="5" fill="currentColor" />
+                  <circle class="theme-cut" cx="36" cy="0" r="7.2" fill="var(--page)" />
+                </svg>
+              </button>
               <button class="lang-toggle" type="button" aria-expanded="false" aria-haspopup="listbox">
                 <span class="lang-word">Language</span>
                 <span class="lang-hints" aria-hidden="true">
@@ -140,6 +167,7 @@
   <script src="js/vendor/Observer.min.js"></script>
   <script src="score-data.js"></script>
   <script src="js/i18n.js"></script>
+  <script src="js/theme.js"></script>
   <script src="js/works-data.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/score.js"></script>
