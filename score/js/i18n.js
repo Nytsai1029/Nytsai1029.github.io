@@ -40,6 +40,7 @@ App.i18n = {
       "works.label": "作品",
       "works.detail": "SEE DETAIL",
       "works.amazon": "Amazon",
+      "works.soon": "敬请期待",
       "page.service": "服务",
       "page.contact": "联系",
       "lang.aria": "选择语言",
@@ -66,6 +67,7 @@ App.i18n = {
       "works.label": "作品",
       "works.detail": "SEE DETAIL",
       "works.amazon": "Amazon",
+      "works.soon": "敬請期待",
       "page.service": "服務",
       "page.contact": "聯繫",
       "lang.aria": "選擇語言",
@@ -92,6 +94,7 @@ App.i18n = {
       "works.label": "Works",
       "works.detail": "SEE DETAIL",
       "works.amazon": "Amazon",
+      "works.soon": "Coming soon",
       "page.service": "Service",
       "page.contact": "Contact",
       "lang.aria": "Choose language",
@@ -118,6 +121,7 @@ App.i18n = {
       "works.label": "作品",
       "works.detail": "SEE DETAIL",
       "works.amazon": "Amazon",
+      "works.soon": "近日公開",
       "page.service": "サービス",
       "page.contact": "連絡",
       "lang.aria": "言語を選択",
@@ -144,6 +148,7 @@ App.i18n = {
       "works.label": "작품",
       "works.detail": "SEE DETAIL",
       "works.amazon": "Amazon",
+      "works.soon": "기대해 주세요",
       "page.service": "서비스",
       "page.contact": "연락",
       "lang.aria": "언어 선택",
@@ -247,6 +252,7 @@ App.i18n = {
     const list = document.querySelector(".lang-list");
     if (list) list.setAttribute("aria-label", this.t("lang.aria"));
     if (App.works && App.works.relocalize) App.works.relocalize();
+    if (App.era && App.era.relocalize) App.era.relocalize();
     if (App.lang && App.lang.markCurrent) App.lang.markCurrent();
   },
 

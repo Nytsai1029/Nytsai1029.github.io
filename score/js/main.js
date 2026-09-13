@@ -13,6 +13,7 @@ App.boot = function () {
   App.grid.start();
   App.wheel.bind();
   App.works.init();
+  App.era.init();
   App.lang.bind();
 
   const prepared = App.score.prepare();

@@ -113,7 +113,8 @@ App.grid = {
         const major = i % 4 === 0 || j % 4 === 0;
         const shimmer = 0.84 + 0.16 * Math.sin(t + i * 0.35 + j * 0.41);
         const crest = (swell + 1) * 0.5;
-        const alpha = Math.min(1, (major ? G.dotHi : G.dotLo) * shimmer + eased * 0.62 + crest * G.waveAlpha);
+        const alpha = Math.min(1, (major ? G.dotHi : G.dotLo) * shimmer + eased * 0.62 + crest * G.waveAlpha)
+          * (1 - eased * G.nearDim);
         const size = (major ? 1.7 : 1.25) + eased * 2.1 + crest * 0.35;
 
         ctx.fillStyle = `rgba(18, 18, 18, ${alpha})`;

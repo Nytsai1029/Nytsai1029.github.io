@@ -54,7 +54,7 @@ App.wheel = {
     const contactAt = anim.labels.contact;
     if (worksAt == null) return 0;
     const homeDur = App.TIMING.homeToAbout;
-    const trans = App.TIMING.pageDur;
+    const trans = App.TIMING.pageDone;
     if (t < homeDur) return gsap.utils.mapRange(0, homeDur, 0, 1, t);
     if (t < worksAt) return 1;
     if (t < worksAt + trans) return gsap.utils.mapRange(worksAt, worksAt + trans, 1, 2, t);

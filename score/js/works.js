@@ -4,8 +4,10 @@ App.works = {
   active: 0,
   slot: 0,
   busy: false,
+  eraOpen: false,
   cards: [],
   observer: null,
+  panAcc: 0,
 
   wrapDelta(i, active, n) {
     let d = ((i - active) % n + n) % n;
@@ -79,7 +81,14 @@ App.works = {
   },
 
   fillDate(slotEl, work) {
-    slotEl.textContent = work.date;
+    let text = slotEl.querySelector(".works-date-text");
+    if (!text) {
+      text = document.createElement("span");
+      text.className = "works-date-text";
+      slotEl.textContent = "";
+      slotEl.appendChild(text);
+    }
+    text.textContent = work.date;
   },
 
   syncSeam() {
@@ -162,6 +171,9 @@ App.works = {
     this.fillCopy(incoming, work);
     this.fillDate(inDate, work);
     this.slot ^= 1;
+    this.dateSlots.forEach((el, i) => {
+      el.style.pointerEvents = i === this.slot ? "auto" : "none";
+    });
     const dur = App.GALLERY.copyDur;
     const delay = dur * App.GALLERY.copyOverlap;
     const groups = [[outgoing, outDate], [incoming, inDate]];
@@ -193,7 +205,7 @@ App.works = {
   },
 
   step(dir) {
-    if (this.busy || !this.visible()) return;
+    if (this.busy || this.eraOpen || !this.visible()) return;
     this.busy = true;
     this.goTo(this.active + dir, dir);
     gsap.delayedCall(App.GALLERY.dur * 0.82, () => {
@@ -202,7 +214,7 @@ App.works = {
   },
 
   onCardClick(i) {
-    if (this.busy || !this.visible()) return;
+    if (this.busy || this.eraOpen || !this.visible()) return;
     const d = this.wrapDelta(i, this.active, App.WORKS.length);
     if (Math.abs(d) < 0.001) return;
     this.busy = true;
@@ -217,6 +229,7 @@ App.works = {
     let startY = 0;
     let dragging = false;
     this.gallery.addEventListener("pointerdown", (event) => {
+      if (this.eraOpen) return;
       if (event.pointerType === "touch") return;
       startX = event.clientX;
       startY = event.clientY;
@@ -225,12 +238,32 @@ App.works = {
     window.addEventListener("pointerup", (event) => {
       if (!dragging) return;
       dragging = false;
+      if (this.eraOpen) return;
       const dx = event.clientX - startX;
       const dy = event.clientY - startY;
       if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.25) {
         this.step(dx < 0 ? 1 : -1);
       }
     });
+  },
+
+  bindPan() {
+    this.gallery.addEventListener("wheel", (event) => {
+      if (this.eraOpen || !this.visible()) return;
+      let dx = event.deltaX;
+      if (event.shiftKey && Math.abs(event.deltaY) >= Math.abs(dx)) dx = event.deltaY;
+      if (Math.abs(dx) <= Math.abs(event.deltaY) && !event.shiftKey) return;
+      if (Math.abs(dx) < 1) return;
+      event.preventDefault();
+      event.stopPropagation();
+      this.panAcc += dx;
+      const need = App.GALLERY.panStep || 72;
+      if (Math.abs(this.panAcc) >= need) {
+        const dir = this.panAcc > 0 ? 1 : -1;
+        this.panAcc = 0;
+        this.step(dir);
+      }
+    }, { passive: false, capture: true });
   },
 
   init() {
@@ -258,9 +291,11 @@ App.works = {
 
     this.cards = [...this.rail.querySelectorAll(".works-card")];
     this.fillCopy(this.slots[0], App.WORKS[0]);
-    this.fillDate(this.dateSlots[0], App.WORKS[0]);
-    gsap.set([this.slots[0], this.dateSlots[0]], { autoAlpha: 1, x: 0 });
-    gsap.set([this.slots[1], this.dateSlots[1]], { autoAlpha: 0, x: 0 });
+    this.dateSlots.forEach((slot) => this.fillDate(slot, App.WORKS[0]));
+    gsap.set([this.slots[0], this.dateSlots[0]], { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+    gsap.set([this.slots[1], this.dateSlots[1]], { autoAlpha: 0, x: 0, y: 0, scale: 1 });
+    this.dateSlots[0].style.pointerEvents = "auto";
+    this.dateSlots[1].style.pointerEvents = "none";
     gsap.set(this.seam, {
       autoAlpha: 0,
       xPercent: -50,
@@ -283,7 +318,11 @@ App.works = {
     }
 
     this.bindSwipe();
-    window.addEventListener("resize", () => this.layout(false));
+    this.bindPan();
+    window.addEventListener("resize", () => {
+      if (this.eraOpen) return;
+      this.layout(false);
+    });
   },
 
   relocalize() {
@@ -291,5 +330,6 @@ App.works = {
     const work = App.WORKS[this.active];
     this.fillCopy(this.slots[this.slot], work);
     this.fillDate(this.dateSlots[this.slot], work);
+    if (App.era && App.era.relocalize) App.era.relocalize();
   },
 };
