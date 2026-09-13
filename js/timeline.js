@@ -41,6 +41,7 @@ App.timeline = {
       gsap.set(aboutScore, { autoAlpha: 1, yPercent: -50, y: -10 });
       gsap.set(wheel, { autoAlpha: 1, x: 0, yPercent: -50 });
       App.wheel.layout(1, 0);
+      App.story = null;
       return null;
     }
 
@@ -55,13 +56,14 @@ App.timeline = {
         invalidateOnRefresh: true,
       },
     });
+    App.story = tl;
 
     tl.addLabel("home", 0);
-    tl.fromTo("#hero", { y: 0, autoAlpha: 1 }, { y: -56, autoAlpha: 0, duration: T.heroDur, ease: "power2.in" }, 0);
-    tl.fromTo("#hint", { autoAlpha: 1 }, { autoAlpha: 0, duration: T.hintDur, ease: "power2.in" }, 0);
+    tl.fromTo("#hero", { y: 0, autoAlpha: 1 }, { y: -56, autoAlpha: 0, duration: T.pageDur, ease: "power2.in" }, 0);
+    tl.fromTo("#hint", { autoAlpha: 1 }, { autoAlpha: 0, duration: T.pageDur, ease: "power2.in" }, 0);
     tl.fromTo(canvas, { autoAlpha: 1 }, {
       autoAlpha: 0,
-      duration: T.heroDur,
+      duration: T.pageDur,
       ease: "power2.in",
     }, 0);
 
@@ -69,23 +71,23 @@ App.timeline = {
       autoAlpha: 1,
       yPercent: -50,
       y: -10,
-      duration: T.aboutDur,
+      duration: T.pageDur,
       ease: "power2.out",
-    }, T.aboutAt);
+    }, T.pageInDelay);
     tl.fromTo(aboutCopy, { autoAlpha: 0, yPercent: -50, y: 22 }, {
       autoAlpha: 1,
       yPercent: -50,
       y: 0,
-      duration: T.copyDur,
+      duration: T.pageDur,
       ease: "power2.out",
-    }, T.copyAt);
+    }, T.pageInDelay);
     tl.fromTo(wheel, { x: 84, yPercent: -50, autoAlpha: 0 }, {
       x: 0,
       yPercent: -50,
       autoAlpha: 1,
-      duration: T.aboutDur,
+      duration: T.pageDur,
       ease: "power3.out",
-    }, T.aboutAt);
+    }, T.pageInDelay);
 
     tl.fromTo(frameLines, {
       strokeDashoffset: (i) => lineLens[i],
@@ -95,7 +97,7 @@ App.timeline = {
       ease: "power2.inOut",
       stagger: { amount: T.staffStagger, from: "start" },
       immediateRender: false,
-    }, T.aboutAt);
+    }, T.pageInDelay);
 
     tl.fromTo(frameFills, { autoAlpha: 0 }, {
       autoAlpha: 1,

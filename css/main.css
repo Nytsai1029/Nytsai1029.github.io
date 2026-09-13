@@ -594,6 +594,7 @@ html[lang="en"] .wheel-item .en {
   height: 74%;
   overflow: hidden;
   pointer-events: auto;
+  touch-action: pan-y;
 }
 
 .works-rail {
@@ -647,9 +648,10 @@ html[lang="en"] .wheel-item .en {
   left: 0;
   right: 0;
   bottom: 2.85rem;
-  height: 2rem;
+  height: 2.1rem;
+  z-index: 7;
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .works-date-slot {
@@ -657,11 +659,223 @@ html[lang="en"] .wheel-item .en {
   left: 0;
   right: 0;
   bottom: 0;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   font-family: "Cormorant Garamond", "Times New Roman", serif;
   font-size: 1.56rem;
   letter-spacing: 0.04em;
+  line-height: 1.2;
   color: var(--dim);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.works-date-text {
+  display: block;
+  white-space: nowrap;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.works-date-slot:hover {
+  color: var(--ink);
+}
+
+.works-date-flyer {
+  position: absolute;
+  z-index: 8;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.works-era {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.works-era.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.works-era-view {
+  position: absolute;
+  inset: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e2e2 #fff;
+}
+
+.works-era-view:active {
+  cursor: grabbing;
+}
+
+.works-era-view::-webkit-scrollbar {
+  height: 5px;
+}
+
+.works-era-view::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.works-era-view::-webkit-scrollbar-thumb {
+  background: #e2e2e2;
+}
+
+.works-era-track {
+  position: relative;
+  height: 100%;
+}
+
+.works-era-line {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  background: #c5c5c5;
+}
+
+.works-era-end {
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #c5c5c5;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+}
+
+.works-era-node {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.works-era-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.works-era-node.is-origin .works-era-dot {
+  width: 8px;
+  height: 8px;
+}
+
+.works-era-soon {
+  position: absolute;
+  top: 50%;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: var(--dim);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.works-era-copy {
+  position: absolute;
+  left: 0;
+  width: 10.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.works-era-node.is-above .works-era-copy {
+  bottom: 16px;
+}
+
+.works-era-node.is-below .works-era-copy {
+  top: 16px;
+}
+
+.works-era-title {
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.works-era-role {
+  margin-top: 0.28em;
+  font-weight: 400;
+  font-size: 0.64rem;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+  color: var(--dim);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.works-era-date {
+  margin-top: 0.22em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--dim);
+}
+
+.works-era-node.is-origin .works-era-date {
+  color: var(--ink);
+}
+
+.works-era-node.is-flying .works-era-date {
+  opacity: 0 !important;
+}
+
+.works-era-copy:hover .works-era-title,
+.works-era-copy:hover .works-era-date {
+  color: var(--ink);
 }
 
 #wheel {
