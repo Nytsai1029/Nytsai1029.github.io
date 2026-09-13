@@ -249,7 +249,6 @@ App.works = {
       const img = document.createElement("img");
       img.src = work.image;
       img.alt = work.title;
-      img.referrerPolicy = "no-referrer";
       img.draggable = false;
       img.addEventListener("load", () => this.layout(false));
       card.appendChild(img);
