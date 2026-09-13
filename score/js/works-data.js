@@ -4,7 +4,7 @@ App.WORKS = [
   {
     title: "角野隼斗 ピアノ作品集",
     role: "採譜・浄書を担当しました。",
-    image: "https://m.media-amazon.com/images/I/51xR3VZw71L._SL1280_.jpg",
+    image: "images/works/01.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01101569",
     amazon: "https://amzn.asia/d/fNMaF2s",
     date: "2024.02",
@@ -12,7 +12,7 @@ App.WORKS = [
   {
     title: "角野隼斗 10 levels of “I got rhythm”",
     role: "採譜・浄書を担当しました。",
-    image: "https://m.media-amazon.com/images/I/71erp7Z4Z7L._SL1280_.jpg",
+    image: "images/works/02.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01101682",
     amazon: "https://amzn.asia/d/bQOi65Q",
     date: "2024.02",
@@ -20,7 +20,7 @@ App.WORKS = [
   {
     title: "まらしぃ V.I.P X",
     role: "採譜・浄書を担当しました。",
-    image: "https://m.media-amazon.com/images/I/71Kpj4jdihL._SL1280_.jpg",
+    image: "images/works/03.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01100045",
     amazon: "https://amzn.asia/d/hW00xZT",
     date: "2021.01",
@@ -28,7 +28,7 @@ App.WORKS = [
   {
     title: "加羽沢美濃 ディズニー・ベスト・セレクション",
     role: "採譜・浄書を担当しました。",
-    image: "https://m.media-amazon.com/images/I/71atr36Rf+L._SL1283_.jpg",
+    image: "images/works/04.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01097518",
     amazon: "https://amzn.to/2ydgcsD",
     date: "2020.03",
@@ -36,7 +36,7 @@ App.WORKS = [
   {
     title: "公式楽譜集 映画『蜜蜂と遠雷』より",
     role: "採譜・浄書を担当しました。",
-    image: "https://m.media-amazon.com/images/I/81a7S3bc+BL._SL1280_.jpg",
+    image: "images/works/05.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01097366",
     amazon: "https://amzn.asia/d/fatd0Pb",
     date: "2019.10",
@@ -44,7 +44,7 @@ App.WORKS = [
   {
     title: "極上のピアノ2018秋冬号",
     role: "「The Dream of the Lambs」 の採譜＆楽譜浄書を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/81SCkE-eLsL.jpg",
+    image: "images/works/06.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01096415",
     amazon: "https://amzn.asia/d/htsmkId",
     date: "2018.11",
@@ -52,7 +52,7 @@ App.WORKS = [
   {
     title: "清塚信也 For Tomorrow",
     role: "「Baby,God Bless You」 の採譜を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/61Hyi9cT10L.jpg",
+    image: "images/works/07.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01101236",
     amazon: "https://amzn.asia/d/fHnvCZT",
     date: "2017.11",
@@ -60,7 +60,7 @@ App.WORKS = [
   {
     title: "月刊ピアノ 2017年12月号",
     role: "《音楽の知識とピアノの技術が役立つ仕事》に記事が掲載されています。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/810gNdoGu4L.jpg",
+    image: "images/works/08.jpg",
     detail: "http://www.ymm.co.jp/p/detail.php?code=GTM01095081",
     amazon: "https://amzn.asia/d/eHErvK2",
     date: "2017.11",
@@ -68,7 +68,7 @@ App.WORKS = [
   {
     title: "月刊ピアノ 2017年11月号",
     role: "《音楽の知識とピアノの技術が役立つ仕事》に記事が掲載されています。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/517c3vs%2BfYL.jpg",
+    image: "images/works/09.jpg",
     detail: "http://www.ymm.co.jp/p/detail.php?code=GTM01095030",
     amazon: "https://amzn.asia/d/1W7JqQG",
     date: "2017.10",
@@ -76,7 +76,7 @@ App.WORKS = [
   {
     title: "オカリナで吹く 演歌・歌謡曲～津軽海峡・冬景色～",
     role: "アレンジ＆音源制作を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/81tS4DVONzL.jpg",
+    image: "images/works/10.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTW01101076",
     amazon: "https://amzn.to/2IG24Zl",
     date: "2017.10",
@@ -84,7 +84,7 @@ App.WORKS = [
   {
     title: "H ZETTRIO 『Beautiful Flight』",
     role: "採譜(ピアノ・オルガン)を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/714ColqDUML.jpg",
+    image: "images/works/11.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01102027",
     amazon: "https://amzn.to/2rZghdm",
     date: "2017.10",
@@ -92,7 +92,7 @@ App.WORKS = [
   {
     title: "弾きこなす！ボーカロイド人気曲ランキング30",
     role: "「独りんぼエンヴィー」 のアレンジ(上級)を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/81AIYs5AcQL.jpg",
+    image: "images/works/12.jpg",
     detail: "http://www.ymm.co.jp/p/detail.php?code=GTP01094645",
     amazon: "https://amzn.to/2ID8bxb",
     date: "2017.06",
@@ -100,7 +100,7 @@ App.WORKS = [
   {
     title: "H ZETTRIO『PIANO CRAZE』",
     role: "採譜(ピアノ・オルガン・シンセ)を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/71SDskHiZeL.jpg",
+    image: "images/works/13.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTP01101656",
     amazon: "https://amzn.to/2x4HRe7",
     date: "2017.06",
@@ -108,7 +108,7 @@ App.WORKS = [
   {
     title: "クロマチックハーモニカで吹く 歌謡曲・演歌",
     role: "アレンジ＆音源制作を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/71teYI0aUqL.jpg",
+    image: "images/works/14.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTW01100426",
     amazon: "https://amzn.to/2sa9rRN",
     date: "2017.06",
@@ -116,7 +116,7 @@ App.WORKS = [
   {
     title: "オカリナで吹く デュエット・レパートリー～カントリー・ロード～",
     role: "一部楽曲のアレンジ＆音源制作を担当しました。",
-    image: "https://images-na.ssl-images-amazon.com/images/I/61xhc6bG94L.jpg",
+    image: "images/works/15.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTW01101222",
     amazon: "https://amzn.to/2ke7tw2",
     date: "2016.10",
@@ -124,7 +124,7 @@ App.WORKS = [
   {
     title: "オカリナで吹く イベントお役立ち定番曲集",
     role: "一部楽曲のアレンジ＆音源制作を担当しました。",
-    image: "https://shop.r10s.jp/book/cabinet/5141/9784636935141.jpg",
+    image: "images/works/16.jpg",
     detail: "https://www.ymm.co.jp/p/detail.php?code=GTW01102154",
     amazon: "https://amzn.to/2IFgFrO",
     date: "2016.09",
