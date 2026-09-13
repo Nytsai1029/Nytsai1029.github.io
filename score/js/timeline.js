@@ -7,12 +7,13 @@ App.timeline = {
     const aboutCopy = document.getElementById("about-copy");
     const worksPage = document.getElementById("works");
     const servicePage = document.getElementById("service");
+    const downloadPage = document.getElementById("download");
     const contactPage = document.getElementById("contact");
     const wheel = document.getElementById("wheel");
     const canvas = document.getElementById("grid");
     const { frameLines, frameFills, flies, lineLens } = prepared;
 
-    gsap.set([worksPage, servicePage, contactPage], { autoAlpha: 0 });
+    gsap.set([worksPage, servicePage, downloadPage, contactPage], { autoAlpha: 0 });
     gsap.set(aboutScore, { autoAlpha: 0, yPercent: -50 });
     gsap.set(aboutCopy, { autoAlpha: 0, yPercent: -50 });
 
@@ -49,7 +50,7 @@ App.timeline = {
       scrollTrigger: {
         trigger: "#stage",
         start: "top top",
-        end: () => "+=" + Math.round(window.innerHeight * 11.2),
+        end: () => "+=" + Math.round(window.innerHeight * 13.5),
         pin: true,
         scrub: 0.55,
         anticipatePin: 1,
@@ -150,10 +151,22 @@ App.timeline = {
       immediateRender: false,
     }, "service+=" + T.pageInDelay);
     tl.addLabel("serviceDone", "service+=" + T.pageDone);
-    tl.to({}, { duration: T.pageHold });
+    tl.to({}, { duration: T.serviceHold });
+
+    tl.addLabel("download");
+    tl.to(servicePage, { y: -48, autoAlpha: 0, duration: T.pageDur, ease: "power2.in" }, "download");
+    tl.fromTo(downloadPage, { y: 40, autoAlpha: 0 }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: T.pageDur,
+      ease: "power2.out",
+      immediateRender: false,
+    }, "download+=" + T.pageInDelay);
+    tl.addLabel("downloadDone", "download+=" + T.pageDone);
+    tl.to({}, { duration: T.downloadHold });
 
     tl.addLabel("contact");
-    tl.to(servicePage, { y: -48, autoAlpha: 0, duration: T.pageDur, ease: "power2.in" }, "contact");
+    tl.to(downloadPage, { y: -48, autoAlpha: 0, duration: T.pageDur, ease: "power2.in" }, "contact");
     tl.fromTo(contactPage, { y: 40, autoAlpha: 0 }, {
       y: 0,
       autoAlpha: 1,
@@ -171,6 +184,7 @@ App.timeline = {
       tl.labels.aboutDone,
       tl.labels.worksDone,
       tl.labels.serviceDone,
+      tl.labels.downloadDone,
       tl.labels.contactDone,
     ];
 

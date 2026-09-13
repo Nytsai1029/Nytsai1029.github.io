@@ -100,15 +100,136 @@
             </div>
           </div>
         </section>
-        <section id="service" class="page-title"><h2 data-i18n="page.service">服务</h2></section>
-        <section id="contact" class="page-title"><h2 data-i18n="page.contact">联系</h2></section>
+        <section id="service" data-i18n-aria="service.label" aria-label="服务">
+          <div class="service-inner">
+            <header class="service-head">
+              <h2 data-i18n="service.title">服务</h2>
+              <p class="service-sub" data-i18n="service.sub">Service</p>
+              <hr class="service-rule" />
+            </header>
+            <div class="service-grid">
+              <article class="service-item" data-service="engraving">
+                <div class="service-lead">
+                  <button type="button" class="service-back" data-i18n-aria="service.back" aria-hidden="true" tabindex="-1">
+                    <svg viewBox="0 0 8 12" width="8" height="11" aria-hidden="true">
+                      <path d="M0.8 6L7.2 0.8v10.4L0.8 6z" fill="currentColor" />
+                    </svg>
+                  </button>
+                  <button type="button" class="service-hit" aria-expanded="false">
+                    <span class="service-title">
+                      <h3 class="service-name" data-i18n="service.engraving.name">乐谱净书</h3>
+                      <p class="service-en" data-i18n="service.engraving.en">Music Engraving</p>
+                    </span>
+                  </button>
+                </div>
+                <div class="service-detail" aria-hidden="true">
+                  <hr class="service-detail-rule" />
+                  <div class="service-detail-body"></div>
+                </div>
+              </article>
+              <article class="service-item" data-service="production">
+                <div class="service-lead">
+                  <button type="button" class="service-back" data-i18n-aria="service.back" aria-hidden="true" tabindex="-1">
+                    <svg viewBox="0 0 8 12" width="8" height="11" aria-hidden="true">
+                      <path d="M0.8 6L7.2 0.8v10.4L0.8 6z" fill="currentColor" />
+                    </svg>
+                  </button>
+                  <button type="button" class="service-hit" aria-expanded="false">
+                    <span class="service-title">
+                      <h3 class="service-name" data-i18n="service.production.name">音源制作</h3>
+                      <p class="service-en" data-i18n="service.production.en">Sound Production</p>
+                    </span>
+                  </button>
+                </div>
+                <div class="service-detail" aria-hidden="true">
+                  <hr class="service-detail-rule" />
+                  <div class="service-detail-body"></div>
+                </div>
+              </article>
+              <article class="service-item" data-service="library">
+                <div class="service-lead">
+                  <button type="button" class="service-back" data-i18n-aria="service.back" aria-hidden="true" tabindex="-1">
+                    <svg viewBox="0 0 8 12" width="8" height="11" aria-hidden="true">
+                      <path d="M0.8 6L7.2 0.8v10.4L0.8 6z" fill="currentColor" />
+                    </svg>
+                  </button>
+                  <button type="button" class="service-hit" aria-expanded="false">
+                    <span class="service-title">
+                      <h3 class="service-name" data-i18n="service.library.name">采样音库</h3>
+                      <p class="service-en" data-i18n="service.library.en">Sound Library</p>
+                    </span>
+                  </button>
+                </div>
+                <div class="service-detail" aria-hidden="true">
+                  <hr class="service-detail-rule" />
+                  <div class="service-detail-body"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section id="download" data-i18n-aria="download.label" aria-label="下载">
+          <div class="download-inner">
+            <header class="download-head">
+              <h2 data-i18n="download.title">下载</h2>
+              <p class="download-sub" data-i18n="download.sub">Download</p>
+              <hr class="download-rule" />
+            </header>
+            <div class="download-chrome">
+              <div class="download-nav">
+                <button type="button" class="download-up" data-i18n-aria="download.up" aria-hidden="true" tabindex="-1">
+                  <svg viewBox="0 0 8 12" width="8" height="11" aria-hidden="true">
+                    <path d="M0.8 6L7.2 0.8v10.4L0.8 6z" fill="currentColor" />
+                  </svg>
+                </button>
+                <nav class="download-crumbs" aria-label="path"></nav>
+              </div>
+              <label class="download-search">
+                <input class="download-q" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search" />
+              </label>
+            </div>
+            <div class="download-stage">
+              <div class="download-grid"></div>
+            </div>
+          </div>
+        </section>
+        <section id="contact" data-i18n-aria="contact.label" aria-label="联系">
+          <div class="contact-inner">
+            <header class="contact-head">
+              <h2 data-i18n="contact.title">联系</h2>
+              <p class="contact-sub" data-i18n="contact.sub">Contact</p>
+              <hr class="contact-rule" />
+            </header>
+            <div class="contact-grid">
+              <article class="contact-item">
+                <h3 class="contact-name" data-i18n="contact.work.name">委托</h3>
+                <p class="contact-en" data-i18n="contact.work.en">Commission</p>
+                <p class="contact-p" data-i18n="contact.work.body">欢迎就乐谱净书、音源制作与采样音库来信。估价免费，将尽量配合需求。</p>
+              </article>
+              <article class="contact-item">
+                <h3 class="contact-name" data-i18n="contact.mail.name">邮箱</h3>
+                <p class="contact-en" data-i18n="contact.mail.en">Mail</p>
+                <a class="contact-mail" href="mailto:studio@nytsai.com">studio@nytsai.com</a>
+                <p class="contact-place" data-i18n="contact.place">东京</p>
+              </article>
+              <article class="contact-item">
+                <h3 class="contact-name" data-i18n="contact.social.name">社交</h3>
+                <p class="contact-en" data-i18n="contact.social.en">Social</p>
+                <p class="contact-links">
+                  <a href="#">Bilibili</a><span class="sep">|</span><a href="#" data-i18n="social.xiaohongshu">小红书</a><span class="sep">|</span><a href="#">Youtube</a><span class="sep">|</span><a href="#">X</a>
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
         <nav id="wheel" data-i18n-aria="nav.label" aria-label="目录">
           <div class="wheel-inner">
             <button class="wheel-item" type="button" data-page="0"><span class="zh" data-i18n="nav.home">主页</span><span class="en" data-i18n="nav.homeEn">Home</span></button>
             <button class="wheel-item" type="button" data-page="1"><span class="zh" data-i18n="nav.about">简介</span><span class="en" data-i18n="nav.aboutEn">About</span></button>
             <button class="wheel-item" type="button" data-page="2"><span class="zh" data-i18n="nav.works">作品</span><span class="en" data-i18n="nav.worksEn">Works</span></button>
             <button class="wheel-item" type="button" data-page="3"><span class="zh" data-i18n="nav.service">服务</span><span class="en" data-i18n="nav.serviceEn">Service</span></button>
-            <button class="wheel-item" type="button" data-page="4"><span class="zh" data-i18n="nav.contact">联系</span><span class="en" data-i18n="nav.contactEn">Contact</span></button>
+            <button class="wheel-item" type="button" data-page="4"><span class="zh" data-i18n="nav.download">下载</span><span class="en" data-i18n="nav.downloadEn">Download</span></button>
+            <button class="wheel-item" type="button" data-page="5"><span class="zh" data-i18n="nav.contact">联系</span><span class="en" data-i18n="nav.contactEn">Contact</span></button>
           </div>
         </nav>
         <div class="site-meta">
@@ -174,6 +295,10 @@
   <script src="js/wheel.js"></script>
   <script src="js/works.js"></script>
   <script src="js/era.js"></script>
+  <script src="js/service-data.js"></script>
+  <script src="js/service.js"></script>
+  <script src="js/download-data.js"></script>
+  <script src="js/download.js"></script>
   <script src="js/timeline.js"></script>
   <script src="js/main.js"></script>
 </body>

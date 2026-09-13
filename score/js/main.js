@@ -5,7 +5,7 @@ App.boot = function () {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother, Observer);
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
-  document.querySelectorAll(".hero-links a").forEach((a) => {
+  document.querySelectorAll(".hero-links a, .contact-links a").forEach((a) => {
     a.addEventListener("click", (event) => event.preventDefault());
   });
 
@@ -15,6 +15,8 @@ App.boot = function () {
   App.wheel.bind();
   App.works.init();
   App.era.init();
+  App.service.init();
+  App.files.init();
   App.lang.bind();
 
   const prepared = App.score.prepare();

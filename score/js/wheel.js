@@ -51,6 +51,7 @@ App.wheel = {
     if (!anim || !anim.labels) return 0;
     const worksAt = anim.labels.works;
     const serviceAt = anim.labels.service;
+    const downloadAt = anim.labels.download;
     const contactAt = anim.labels.contact;
     if (worksAt == null) return 0;
     const homeDur = App.TIMING.homeToAbout;
@@ -60,9 +61,11 @@ App.wheel = {
     if (t < worksAt + trans) return gsap.utils.mapRange(worksAt, worksAt + trans, 1, 2, t);
     if (t < serviceAt) return 2;
     if (t < serviceAt + trans) return gsap.utils.mapRange(serviceAt, serviceAt + trans, 2, 3, t);
-    if (t < contactAt) return 3;
-    if (t < contactAt + trans) return gsap.utils.mapRange(contactAt, contactAt + trans, 3, 4, t);
-    return 4;
+    if (t < downloadAt) return 3;
+    if (t < downloadAt + trans) return gsap.utils.mapRange(downloadAt, downloadAt + trans, 3, 4, t);
+    if (t < contactAt) return 4;
+    if (t < contactAt + trans) return gsap.utils.mapRange(contactAt, contactAt + trans, 4, 5, t);
+    return 5;
   },
 
   update() {

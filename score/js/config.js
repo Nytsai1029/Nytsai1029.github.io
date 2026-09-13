@@ -21,7 +21,9 @@ App.TIMING = {
   notesStagger: 0.61,
   aboutHold: 0.5,
   pageHold: 0.75,
-  contactHold: 0.9,
+  serviceHold: 1.05,
+  downloadHold: 1.05,
+  contactHold: 1.05,
 };
 
 App.TIMING.pageDone = App.TIMING.pageInDelay + App.TIMING.pageDur;
@@ -77,6 +79,19 @@ App.GRID = {
   nearDim: 0.1,
 };
 
+App.SERVICE = {
+  fadeDur: 0.28,
+  titleDur: 0.56,
+  bodyDur: 0.5,
+  closeDur: 0.42,
+};
+
+App.FILES = {
+  fadeDur: 0.22,
+  inDur: 0.42,
+  stagger: 0.2,
+};
+
 App.THEME = {
   morphDur: 0.44,
   wipeDur: 0.9,
@@ -84,8 +99,8 @@ App.THEME = {
 };
 
 App.WHEEL = {
-  count: 5,
-  yGap: { compact: 56, open: 50 },
+  count: 6,
+  yGap: { compact: 48, open: 42 },
   curve: { compact: 3, open: 2.8 },
   scaleHi: { compact: 1.12, open: 1.02 },
   scaleLo: { compact: 0.72, open: 0.9 },
