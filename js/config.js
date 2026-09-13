@@ -36,6 +36,25 @@ App.TIMING.aboutDone = App.TIMING.notesAt + App.TIMING.notesStagger + App.TIMING
 App.TIMING.pageDone = App.TIMING.pageInDelay + App.TIMING.pageDur;
 App.TIMING.homeToAbout = App.TIMING.aboutAt + App.TIMING.aboutDur;
 
+App.GALLERY = {
+  scale: [1, 0.555, 0.405],
+  opacity: [1, 0.52, 0.32],
+  peek: 1 / 3,
+  gap: 32,
+  dur: 0.58,
+  copyDur: 0.42,
+  copyOverlap: 0.5,
+};
+
+App.INTRO = {
+  minDur: 1,
+  hold: 0.88,
+  creepDur: 12,
+  finishDur: 0.22,
+  wipeDur: 0.92,
+  wipeAngle: 20,
+};
+
 App.WHEEL = {
   count: 5,
   yGap: { compact: 56, open: 50 },

@@ -1,15 +1,18 @@
 window.App = window.App || {};
 
 App.boot = function () {
-  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother, Observer);
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 
   document.querySelectorAll(".hero-links a").forEach((a) => {
     a.addEventListener("click", (event) => event.preventDefault());
   });
 
+  App.i18n.init();
   App.grid.start();
   App.wheel.bind();
+  App.works.init();
+  App.lang.bind();
 
   const prepared = App.score.prepare();
   if (!prepared) return;
@@ -17,3 +20,4 @@ App.boot = function () {
 };
 
 App.boot();
+App.intro.start();
