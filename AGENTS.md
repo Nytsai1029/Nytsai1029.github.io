@@ -2,26 +2,31 @@
 
 Nytsai Piano Sheets 站点设计语言。改 UI 时先对照这里，再动 `css/main.css`、`css/fonts.css` 与 `js/config.js`。运行时资源全部走仓库内静态文件，见「本地静态资源」。
 
-站点是白底衬线、纵向滚动翻页的单页。不要引入无衬线字体、彩色强调或装饰性背景。
+站点默认是白底衬线、纵向滚动翻页的单页。不要引入无衬线字体、彩色强调或装饰性背景。左下角 Language 上方的太阳/月亮可切到深色主题。
 
 ## 配色
 
-只使用下面这些颜色。新色先加 CSS 变量，不要在组件里写散落的 hex。
+只使用下面这些颜色。新色先加 CSS 变量，不要在组件里写散落的 hex。组件里用 token，不要再写散落 hex。
 
-| Token | 值 | 用途 |
-| --- | --- | --- |
-| `--ink` | `#161616` | 主文字、选中态、按钮 hover 填充 |
-| `--dim` | `#7a7a7a` | 副标题、职责、日期、未选中目录、乐谱说明 |
-| `--muted` | `#8d8d8d` | 首页社交链接（默认） |
-| 版权灰 | `#b4b4b4` | 左下角 Copyright |
-| 正文灰 | `#333333` | 简介正文 |
-| 分割线 | `#c5c5c5` | 简介横线、按钮描边、首尾接缝竖线（接缝可用 `#b8b8b8`） |
-| 页面底 | `#ffffff` | `html` / `body` / `#stage` |
-| 滚动条 | `#e2e2e2` | thumb；track 为白 |
+| Token | 浅色 | 深色（`html.theme-dark`） | 用途 |
+| --- | --- | --- | --- |
+| `--ink` | `#161616` | `#ffffff` | 主文字、选中态、按钮 hover 填充 |
+| `--dim` | `#7a7a7a` | `#b4b4b4` | 副标题、职责、日期、未选中目录、乐谱说明 |
+| `--muted` | `#8d8d8d` | `#8d8d8d` | 首页社交链接（默认） |
+| `--copy` | `#b4b4b4` | `#7a7a7a` | 左下角 Copyright、主题图标、Language 默认 |
+| `--copy-hover` | `#7a7a7a` | `#b4b4b4` | 主题图标 hover |
+| `--body` | `#333333` | `#c5c5c5` | 简介正文 |
+| `--rule` | `#c5c5c5` | `#333333` | 简介横线、按钮描边、时间线 |
+| `--seam` | `#b8b8b8` | `#333333` | 画廊首尾接缝竖线 |
+| `--page` | `#ffffff` | `#161616` | `html` / `body` / `#stage` |
+| `--scroll` | `#e2e2e2` | `#333333` | thumb；track 为 `--page` |
+| `--on-ink` | `#ffffff` | `#161616` | 作品按钮 hover 文字 |
 
-交互：链接与按钮默认继承文字色，hover 收到 `--ink`。作品按钮 hover 为 `--ink` 底 + 白字。不要加彩色 hover、渐变或阴影色块。
+交互：链接与按钮默认继承文字色，hover 收到 `--ink`。作品按钮 hover 为 `--ink` 底 + `--on-ink` 字。不要加彩色 hover、渐变或阴影色块。
 
-封面投影仅用 `rgba(22, 22, 22, 0.14)`。
+封面投影用 `--shadow`：浅色 `rgba(22, 22, 22, 0.14)`，深色 `rgba(22, 22, 22, 0.45)`。
+
+主题按钮默认与 Copyright 同灰，hover 收到 `--copy-hover`。选择写入 `localStorage` 的 `score-theme`（`light` / `dark`）。切换：先 GSAP 把太阳 SVG 收成月亮（或反过来），再以图标中心为原点做圆形遮罩铺开新主题。
 
 ## 字体
 
@@ -37,7 +42,7 @@ Nytsai Piano Sheets 站点设计语言。改 UI 时先对照这里，再动 `css
 
 日文必须 `lang="ja"`，走 `:lang(ja) { font-family: var(--jp); }`。整页日文界面时给 `html` 设 `lang="ja"`。字重：正文 / 标题 400（Light 文件），需要稍重时 500（Medium）。不要用粗体标题。
 
-界面语言在左下角 Language 菜单切换（`js/i18n.js`）：简体、繁体、English、日本語、한국어。选择写入 `localStorage` 的 `score-locale`。作品标题保持日文原名，职责等说明走翻译表。`Language` 标签本身保持英文。
+界面语言在左下角 Language 菜单切换（`js/i18n.js`）：简体、繁体、English、日本語、한국어。选择写入 `localStorage` 的 `score-locale`。作品标题保持日文原名，职责等说明走翻译表。`Language` 标签本身保持英文。颜色主题在 Language 正上方，图标按钮，不另写标签。
 
 Noto / Cormorant / Ryumin 都只放仓库内 woff2。`css/fonts.css` 不要改回 Google Fonts、Bunny 或其它 CDN。不要改 `@font-face` 去链到系统字体路径。
 
@@ -66,7 +71,7 @@ Noto / Cormorant / Ryumin 都只放仓库内 woff2。`css/fonts.css` 不要改�
 ## 版式
 
 - 全屏钉住 `#stage`（`100vh`），页面之间用滚动驱动切换，不要做成独立路由。
-- 背景永远是白。首页点阵网格是交互层，不是底纹色。
+- 默认白底。深色主题时页面底是 `--page`（`#161616`）。首页点阵网格是交互层，不是底纹色。
 - 右侧目录 `#wheel` 占约 `10.95rem`（`right: 2.15rem` + `width: 8.8rem`）。作品页内容在目录左侧居中：`#works { left: 0; right: 10.95rem; }`。
 - 目录从简介页起滑入，首页隐藏。中英双行、右对齐；未选项 `--dim`，当前项 `--ink`。
 - Copyright 固定左下，不随翻页消失。
@@ -78,6 +83,7 @@ Noto / Cormorant / Ryumin 都只放仓库内 woff2。`css/fonts.css` 不要改�
 动画只用已加载的 GSAP（core、ScrollTrigger、ScrollSmoother、Observer）。不要加 CSS 关键帧（首页箭头呼吸除外），不要加其它动画库。
 
 - 翻页：`js/config.js` 的 `App.TIMING`，时间轴在 `js/timeline.js`。
+- 主题：`js/config.js` 的 `App.THEME`，太阳/月亮与圆形遮罩在 `js/theme.js`。
 - 作品切换：点击封面或左右滑动；**不要**用滚轮/纵向滚动切换作品，也不要 `preventDefault` 吃掉页面滚动。
 - 作品文案交叉淡入：上一组淡出一半后再淡入下一组（`copyOverlap: 0.5`）。
 - 画廊：中间最大，未选中缩小变淡；首尾相接处用灰色竖线，高度跟两侧较矮的那张图，贴在缝里，不要压在放大封面上。
@@ -91,8 +97,9 @@ Noto / Cormorant / Ryumin 都只放仓库内 woff2。`css/fonts.css` 不要改�
 | --- | --- |
 | `css/main.css` | 视觉与布局；设计 token 写在 `:root` |
 | `css/fonts.css` | Noto / Cormorant 本地 `@font-face`；不要改回 CDN |
-| `js/config.js` | `TIMING` / `GALLERY` / `WHEEL` / `FRAME` |
+| `js/config.js` | `TIMING` / `THEME` / `GALLERY` / `WHEEL` / `FRAME` |
 | `js/i18n.js` | 文案与语言菜单 |
+| `js/theme.js` | 浅色/深色切换、太阳月亮 SVG、圆形遮罩 |
 | `js/works-data.js` | 作品标题、职责、日期、封面、链接 |
 | `js/vendor/` | GSAP 本地脚本，清单见「本地静态资源」 |
 | `score-data.js` | 内联乐谱 SVG（`SCORE_SVG`） |
@@ -174,6 +181,7 @@ Noto 的 latin 与 CJK 必须分开声明并带 `unicode-range`，否则西文�
 
 - 不要加品牌色、渐变、卡片底、毛玻璃、大圆角。
 - 不要用系统默认无衬线（`-apple-system`、Inter、PingFang 作主字体）。
+- 不要把深色主题做成蓝黑或彩色强调；只反转现有灰阶 token。
 - 不要把日期、按钮、英文副标题改成 Noto / Ryumin。
 - 不要自动轮播作品。
 - 不要从 CDN 加载字体、封面或 GSAP；外链只留给作品的详情页 / Amazon。

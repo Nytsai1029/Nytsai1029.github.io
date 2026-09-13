@@ -77,6 +77,12 @@ App.GRID = {
   nearDim: 0.1,
 };
 
+App.THEME = {
+  morphDur: 0.44,
+  wipeDur: 0.9,
+  page: { light: "#ffffff", dark: "#161616" },
+};
+
 App.WHEEL = {
   count: 5,
   yGap: { compact: 56, open: 50 },

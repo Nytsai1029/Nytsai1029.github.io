@@ -10,6 +10,7 @@ App.boot = function () {
   });
 
   App.i18n.init();
+  App.theme.init();
   App.grid.start();
   App.wheel.bind();
   App.works.init();
