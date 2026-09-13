@@ -42,6 +42,64 @@ App.score = {
     };
   },
 
+  toUser(el, lx, ly) {
+    const list = el.transform && el.transform.baseVal;
+    if (!list || !list.numberOfItems) return { x: lx, y: ly };
+    let x = lx;
+    let y = ly;
+    for (let i = 0; i < list.numberOfItems; i++) {
+      const m = list.getItem(i).matrix;
+      const nx = m.a * x + m.c * y + m.e;
+      const ny = m.b * x + m.d * y + m.f;
+      x = nx;
+      y = ny;
+    }
+    return { x, y };
+  },
+
+  measure(el) {
+    let box;
+    try {
+      box = el.getBBox();
+    } catch (err) {
+      return null;
+    }
+    const cls = el.getAttribute("class") || "";
+    let lx = box.x + box.width / 2;
+    let ly = box.y + box.height / 2;
+    if (cls === "Clef") {
+      lx = 0;
+      ly = 0;
+    } else if (cls === "Bracket" || cls === "Brace") {
+      lx = 0;
+      ly = box.y + box.height / 2;
+    }
+    const pt = this.toUser(el, lx, ly);
+    const right = this.toUser(el, box.x + box.width, ly);
+    return {
+      el,
+      x: pt.x,
+      y: pt.y,
+      w: Math.abs(right.x - pt.x) * 2,
+    };
+  },
+
+  clientToUser(clientX, clientY) {
+    const svg = this.svg;
+    const rect = svg.getBoundingClientRect();
+    const vb = svg.viewBox.baseVal;
+    const vbW = vb && vb.width ? vb.width : 1;
+    const vbH = vb && vb.height ? vb.height : 1;
+    const scale = Math.min(rect.width / vbW, rect.height / vbH) || 1;
+    const ox = rect.left + (rect.width - vbW * scale) / 2;
+    const oy = rect.top + (rect.height - vbH * scale) / 2;
+    return {
+      x: (clientX - ox) / scale + (vb.x || 0),
+      y: (clientY - oy) / scale + (vb.y || 0),
+      scale,
+    };
+  },
+
   prepare() {
     const markup = window.SCORE_SVG;
     if (!markup) {
@@ -77,10 +135,7 @@ App.score = {
       return len;
     });
 
-    const measured = flyItems.map((el) => {
-      const b = el.getBBox();
-      return { el, x: b.x + b.width / 2, y: b.y + b.height / 2, w: b.width };
-    });
+    const measured = flyItems.map((el) => this.measure(el)).filter(Boolean);
     measured.sort((a, b) => a.x - b.x || a.y - b.y);
 
     const clustered = [];
@@ -109,23 +164,21 @@ App.score = {
           fromY: cluster.motion.y,
           fromScale: cluster.motion.scale,
         });
-        this.nudges.push({ el: wrapped.nudge, x: item.x, y: item.y, on: false });
+        this.nudges.push({ el: wrapped.nudge, x: item.x, y: item.y, px: 0, py: 0, on: false });
       });
     });
     flies.sort((a, b) => a.x - b.x || a.y - b.y);
 
     [...frameLines, ...frameFills].forEach((el) => {
-      let b;
-      try {
-        b = el.getBBox();
-      } catch (err) {
-        return;
-      }
+      const item = this.measure(el);
+      if (!item) return;
       const nudge = this.wrapNudge(el);
       this.nudges.push({
         el: nudge,
-        x: b.x + b.width / 2,
-        y: b.y + b.height / 2,
+        x: item.x,
+        y: item.y,
+        px: 0,
+        py: 0,
         on: false,
       });
     });
@@ -156,44 +209,55 @@ App.score = {
       const op = Number(gsap.getProperty(this.host, "opacity"));
       if (!(op > 0.12)) {
         if (this.dirty) {
-          this.nudges.forEach((item) => item.el.setAttribute("transform", "translate(0 0)"));
+          this.nudges.forEach((item) => {
+            item.px = 0;
+            item.py = 0;
+            item.el.setAttribute("transform", "translate(0 0)");
+            item.on = false;
+          });
           this.dirty = false;
         }
         return;
       }
 
-      const ctm = this.svg.getScreenCTM();
-      if (!ctm) return;
-      const inv = ctm.inverse();
+      const mouse = this.clientToUser(App.mouse.tx, App.mouse.ty);
       const box = this.svg.getBoundingClientRect();
-      const radius = Math.min(box.width, box.height) * 0.34;
-      const push = 16;
-      const mx = App.mouse.x;
-      const my = App.mouse.y;
+      const radius = Math.min(box.width, box.height) * 0.34 / mouse.scale;
+      const push = 16 / mouse.scale;
+      const mx = mouse.x;
+      const my = mouse.y;
+      const dt = gsap.ticker.deltaRatio(60);
+      const follow = 1 - Math.pow(0.8, dt);
+      const rest = 1 - Math.pow(0.965, dt);
       let any = false;
 
       for (let i = 0; i < this.nudges.length; i++) {
         const item = this.nudges[i];
-        const sx = ctm.a * item.x + ctm.c * item.y + ctm.e;
-        const sy = ctm.b * item.x + ctm.d * item.y + ctm.f;
-        const dx = sx - mx;
-        const dy = sy - my;
+        const dx = item.x - mx;
+        const dy = item.y - my;
         const dist = Math.hypot(dx, dy);
-        const influence = Math.max(0, 1 - dist / radius);
-        if (influence <= 0) {
+        const influence = dist > 0 ? Math.max(0, 1 - dist / radius) : 1;
+        let ux = 0;
+        let uy = 0;
+        if (influence > 0) {
+          const eased = influence * influence * (3 - 2 * influence);
+          const angle = dist > 0 ? Math.atan2(dy, dx) : 0;
+          ux = Math.cos(angle) * eased * push;
+          uy = Math.sin(angle) * eased * push;
+        }
+        const k = influence > 0 ? follow : rest;
+        item.px += (ux - item.px) * k;
+        item.py += (uy - item.py) * k;
+        if (influence <= 0 && item.px * item.px + item.py * item.py < 0.04) {
           if (item.on) {
+            item.px = 0;
+            item.py = 0;
             item.el.setAttribute("transform", "translate(0 0)");
             item.on = false;
           }
           continue;
         }
-        const eased = influence * influence * (3 - 2 * influence);
-        const angle = Math.atan2(dy, dx) || 0;
-        const px = Math.cos(angle) * eased * push;
-        const py = Math.sin(angle) * eased * push;
-        const ux = inv.a * px + inv.c * py;
-        const uy = inv.b * px + inv.d * py;
-        item.el.setAttribute("transform", "translate(" + ux + " " + uy + ")");
+        item.el.setAttribute("transform", "translate(" + item.px + " " + item.py + ")");
         item.on = true;
         any = true;
       }
