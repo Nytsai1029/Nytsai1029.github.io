@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="intro-lock">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nytsai's Piano Sheets &amp; Works</title>
+  <style>
+    html.intro-lock, html.intro-lock body { overflow: hidden; height: 100%; }
+    #intro { position: fixed; inset: 0; z-index: 200; background: #fff; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+KR:wght@300;400&family=Noto+Serif+SC:wght@300;400&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div id="intro" aria-hidden="true">
+    <div class="intro-panel"></div>
+    <div class="intro-line"></div>
+    <div class="intro-bar"><span class="intro-bar-fill"></span></div>
+  </div>
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+      <div id="stage">
+        <canvas id="grid" aria-hidden="true"></canvas>
+        <div class="hero" id="hero">
+          <h1>Nytsai's Piano Sheets &amp; Works</h1>
+          <p class="hero-links">
+            <a href="#">Bilibili</a><span class="sep">|</span><a href="#" data-i18n="social.xiaohongshu">小红书</a><span class="sep">|</span><a href="#">Youtube</a><span class="sep">|</span><a href="#">X</a>
+          </p>
+        </div>
+        <div class="hint" id="hint" aria-hidden="true">
+          <span class="hint-inner">
+            <svg viewBox="0 0 12 8" width="11" height="8">
+              <path d="M6 7.2L0.8 0.8h10.4L6 7.2z" fill="currentColor" />
+            </svg>
+          </span>
+        </div>
+        <div id="about-score">
+          <div id="score"></div>
+          <p class="score-caption"><em>Ripples of Past Reverie</em> by Nagiha</p>
+        </div>
+        <div id="about-copy">
+          <h2 data-i18n="about.title">你猜这个人</h2>
+          <p class="about-sub" data-i18n="about.sub">Nytsai</p>
+          <hr class="about-rule" />
+          <div class="about-body">
+            <p class="lead"><span data-i18n="about.lead1">绘谱雕版师</span><span data-i18n="about.lead2">东京艺术大学作曲科毕业</span></p>
+            <p data-i18n="about.p1">从大学在学期间开始，便在大型乐谱出版社从事乐谱制作工作，并于2017年独立。</p>
+            <p data-i18n="about.p2">专门从事绘谱雕版、乐谱编辑、校对与审阅、DTP等版面制作工作。</p>
+          </div>
+        </div>
+        <section id="works" data-i18n-aria="works.label" aria-label="作品">
+          <div class="works-inner">
+            <div class="works-copy">
+              <div class="works-copy-slot" data-slot="0">
+                <h2 class="works-title" lang="ja"></h2>
+                <p class="works-role" lang="ja"></p>
+                <div class="works-actions">
+                  <a class="works-btn works-btn-detail" target="_blank" rel="noopener noreferrer" data-i18n="works.detail">SEE DETAIL</a>
+                  <a class="works-btn works-btn-amazon" target="_blank" rel="noopener noreferrer" data-i18n="works.amazon">Amazon</a>
+                </div>
+              </div>
+              <div class="works-copy-slot" data-slot="1">
+                <h2 class="works-title" lang="ja"></h2>
+                <p class="works-role" lang="ja"></p>
+                <div class="works-actions">
+                  <a class="works-btn works-btn-detail" target="_blank" rel="noopener noreferrer" data-i18n="works.detail">SEE DETAIL</a>
+                  <a class="works-btn works-btn-amazon" target="_blank" rel="noopener noreferrer" data-i18n="works.amazon">Amazon</a>
+                </div>
+              </div>
+            </div>
+            <div class="works-gallery">
+              <div class="works-rail">
+                <div class="works-seam" aria-hidden="true"></div>
+              </div>
+              <div class="works-dates">
+                <p class="works-date-slot"></p>
+                <p class="works-date-slot"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="service" class="page-title"><h2 data-i18n="page.service">服务</h2></section>
+        <section id="contact" class="page-title"><h2 data-i18n="page.contact">联系</h2></section>
+        <nav id="wheel" data-i18n-aria="nav.label" aria-label="目录">
+          <div class="wheel-inner">
+            <button class="wheel-item" type="button" data-page="0"><span class="zh" data-i18n="nav.home">主页</span><span class="en" data-i18n="nav.homeEn">Home</span></button>
+            <button class="wheel-item" type="button" data-page="1"><span class="zh" data-i18n="nav.about">简介</span><span class="en" data-i18n="nav.aboutEn">About</span></button>
+            <button class="wheel-item" type="button" data-page="2"><span class="zh" data-i18n="nav.works">作品</span><span class="en" data-i18n="nav.worksEn">Works</span></button>
+            <button class="wheel-item" type="button" data-page="3"><span class="zh" data-i18n="nav.service">服务</span><span class="en" data-i18n="nav.serviceEn">Service</span></button>
+            <button class="wheel-item" type="button" data-page="4"><span class="zh" data-i18n="nav.contact">联系</span><span class="en" data-i18n="nav.contactEn">Contact</span></button>
+          </div>
+        </nav>
+        <div class="site-meta">
+          <div id="lang" class="lang">
+            <div class="lang-panel">
+              <div class="lang-list" role="listbox" aria-label="Language"></div>
+            </div>
+            <button class="lang-toggle" type="button" aria-expanded="false" aria-haspopup="listbox">
+              <span class="lang-word">Language</span>
+              <span class="lang-hints" aria-hidden="true">
+                <span class="lang-hint lang-hint-up">
+                  <svg viewBox="0 0 12 8" width="11" height="8">
+                    <path d="M6 7.2L0.8 0.8h10.4L6 7.2z" fill="currentColor" />
+                  </svg>
+                </span>
+                <span class="lang-hint lang-hint-down">
+                  <span class="lang-hint-breathe">
+                    <svg viewBox="0 0 12 8" width="11" height="8">
+                      <path d="M6 7.2L0.8 0.8h10.4L6 7.2z" fill="currentColor" />
+                    </svg>
+                  </span>
+                </span>
+              </span>
+            </button>
+          </div>
+          <p class="copyright">Copyright © 2026 Nytsai Piano Sheets</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="score-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Observer.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/works-data.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/wheel.js"></script>
+  <script src="js/works.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
