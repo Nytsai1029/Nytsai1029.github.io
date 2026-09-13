@@ -143,7 +143,7 @@ body {
 
 #about-score {
   position: absolute;
-  left: calc(3.2vw + 20px);
+  left: calc(3.2vw + 30px);
   top: 50%;
   width: min(40vw, 520px);
   z-index: 1;
@@ -192,7 +192,7 @@ body {
 
 #about-copy {
   position: absolute;
-  left: max(calc(46vw + 20px), calc(3.2vw + min(40vw, 520px) + 2.4vw + 20px));
+  left: max(calc(46vw + 30px), calc(3.2vw + min(40vw, 520px) + 2.4vw + 30px));
   right: 9.6rem;
   top: 50%;
   z-index: 2;
@@ -269,23 +269,6 @@ body {
   height: 32rem;
   z-index: 5;
   pointer-events: auto;
-}
-
-.wheel-bg {
-  position: absolute;
-  right: -1.15rem;
-  top: 50%;
-  width: 12rem;
-  height: 34rem;
-  margin-top: -17rem;
-  pointer-events: none;
-  overflow: visible;
-  opacity: 0;
-}
-
-.wheel-bg path {
-  fill: #ececec;
-  filter: drop-shadow(-8px 6px 16px rgba(22, 22, 22, 0.08));
 }
 
 .wheel-inner {

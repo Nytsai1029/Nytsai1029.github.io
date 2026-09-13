@@ -3,8 +3,6 @@ window.App = window.App || {};
 App.wheel = {
   root: null,
   items: [],
-  bg: null,
-  bgPath: null,
   hover: { t: 0, target: 0 },
 
   lerp(a, b, t) {
@@ -32,38 +30,6 @@ App.wheel = {
     };
   },
 
-  bgPathD(hoverT) {
-    const w = 192;
-    const h = 544;
-    const cy = h / 2;
-    const yGap = this.lerp(App.WHEEL.yGap.compact, App.WHEEL.yGap.open, hoverT);
-    const curve = this.lerp(App.WHEEL.curve.compact, App.WHEEL.curve.open, hoverT);
-    const right0 = 176;
-    const thickness = 124;
-    const y0 = 28;
-    const y1 = h - 28;
-    const steps = 36;
-    const right = [];
-    const left = [];
-
-    for (let i = 0; i <= steps; i++) {
-      const y = y0 + (y1 - y0) * (i / steps);
-      const d = (y - cy) / yGap;
-      const xOff = d * d * curve;
-      right.push([right0 + xOff, y]);
-      left.push([right0 + xOff - thickness, y]);
-    }
-
-    let d = "M " + right[0][0].toFixed(2) + " " + right[0][1].toFixed(2);
-    for (let i = 1; i < right.length; i++) {
-      d += " L " + right[i][0].toFixed(2) + " " + right[i][1].toFixed(2);
-    }
-    for (let i = left.length - 1; i >= 0; i--) {
-      d += " L " + left[i][0].toFixed(2) + " " + left[i][1].toFixed(2);
-    }
-    return d + " Z";
-  },
-
   layout(active, hoverT) {
     this.items.forEach((el, k) => {
       const compact = this.vars(active, k, false);
@@ -77,8 +43,6 @@ App.wheel = {
         zIndex: Math.abs(k - active) < 0.5 ? 2 : 1,
       });
     });
-    gsap.set(this.bg, { opacity: hoverT });
-    if (hoverT > 0.01) this.bgPath.setAttribute("d", this.bgPathD(hoverT));
   },
 
   activeFromTime(t) {
@@ -113,10 +77,7 @@ App.wheel = {
   bind() {
     this.root = document.getElementById("wheel");
     this.items = [...this.root.querySelectorAll(".wheel-item")];
-    this.bg = this.root.querySelector(".wheel-bg");
-    this.bgPath = this.bg.querySelector("path");
     gsap.set(this.root, { x: 84, yPercent: -50, autoAlpha: 0 });
-    gsap.set(this.bg, { opacity: 0 });
     this.layout(0, 0);
 
     const enter = () => { this.hover.target = 1; };
