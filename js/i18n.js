@@ -247,6 +247,7 @@ App.i18n = {
     const list = document.querySelector(".lang-list");
     if (list) list.setAttribute("aria-label", this.t("lang.aria"));
     if (App.works && App.works.relocalize) App.works.relocalize();
+    if (App.lang && App.lang.markCurrent) App.lang.markCurrent();
   },
 
   set(locale) {
@@ -267,6 +268,7 @@ App.i18n = {
 
 App.lang = {
   open: false,
+  listH: 120,
 
   bind() {
     this.root = document.getElementById("lang");
@@ -275,6 +277,8 @@ App.lang = {
     this.panel = this.root.querySelector(".lang-panel");
     this.list = this.root.querySelector(".lang-list");
     this.hintDown = this.root.querySelector(".lang-hint-down");
+    this.hintBreathe = this.root.querySelector(".lang-hint-breathe");
+    this.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     App.i18n.locales.forEach((item) => {
       const btn = document.createElement("button");
@@ -286,21 +290,23 @@ App.lang = {
       btn.addEventListener("click", (event) => {
         event.stopPropagation();
         App.i18n.set(item.id);
-        this.markCurrent();
         this.close();
       });
       this.list.appendChild(btn);
     });
 
     gsap.set(this.panel, { height: 0, autoAlpha: 0 });
-    gsap.set(this.hintDown, { autoAlpha: 0, y: 4 });
+    this.panel.setAttribute("aria-hidden", "true");
+    gsap.set(this.hintDown, { autoAlpha: 0 });
+    gsap.set(this.hintBreathe, { y: 0 });
 
-    this.root.addEventListener("click", (event) => event.stopPropagation());
-    this.toggle.addEventListener("click", (event) => {
+    const toggleMenu = (event) => {
       event.stopPropagation();
       if (this.open) this.close();
       else this.openMenu();
-    });
+    };
+    this.root.addEventListener("click", (event) => event.stopPropagation());
+    this.toggle.addEventListener("click", toggleMenu);
 
     document.addEventListener("click", () => {
       if (this.open) this.close();
@@ -321,8 +327,33 @@ App.lang = {
   },
 
   markCurrent() {
+    if (!this.list) return;
     this.list.querySelectorAll(".lang-option").forEach((btn) => {
       btn.toggleAttribute("aria-current", btn.getAttribute("data-locale") === App.i18n.locale);
+    });
+  },
+
+  stopBreathe() {
+    if (this.breatheTw) {
+      this.breatheTw.kill();
+      this.breatheTw = null;
+    }
+    if (this.hintBreathe) gsap.set(this.hintBreathe, { y: 0, opacity: 1 });
+  },
+
+  startBreathe() {
+    this.stopBreathe();
+    if (this.reduce || !this.hintBreathe) return;
+    this.breatheTw = gsap.fromTo(this.hintBreathe, {
+      y: 0,
+      opacity: 0.22,
+    }, {
+      y: 2.2,
+      opacity: 0.55,
+      duration: 1.4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
     });
   },
 
@@ -330,9 +361,20 @@ App.lang = {
     this.open = true;
     this.root.classList.add("is-open");
     this.toggle.setAttribute("aria-expanded", "true");
-    gsap.killTweensOf([this.panel, this.hintDown]);
-    gsap.to(this.panel, { height: 120, autoAlpha: 1, duration: 0.36, ease: "power3.out" });
-    gsap.to(this.hintDown, { autoAlpha: 1, y: 0, duration: 0.4, delay: 0.18, ease: "power2.out" });
+    this.panel.setAttribute("aria-hidden", "false");
+    const dur = this.reduce ? 0 : 0.48;
+    if (this.tl) this.tl.kill();
+    this.tl = gsap.timeline({
+      defaults: { duration: dur, ease: "power2.inOut" },
+    });
+    this.tl.set(this.panel, { autoAlpha: 1 }, 0);
+    this.tl.to(this.panel, { height: this.listH }, 0);
+    this.tl.to(this.hintDown, {
+      autoAlpha: 1,
+      duration: this.reduce ? 0 : 0.28,
+      ease: "power2.out",
+    }, this.reduce ? 0 : 0.16);
+    this.tl.add(() => this.startBreathe(), this.reduce ? 0 : 0.2);
   },
 
   close() {
@@ -340,9 +382,21 @@ App.lang = {
     this.open = false;
     this.root.classList.remove("is-open");
     this.toggle.setAttribute("aria-expanded", "false");
-    this.toggle.blur();
-    gsap.killTweensOf([this.panel, this.hintDown]);
-    gsap.to(this.hintDown, { autoAlpha: 0, y: 4, duration: 0.18, ease: "power2.in" });
-    gsap.to(this.panel, { height: 0, autoAlpha: 0, duration: 0.26, ease: "power2.in" });
+    const focused = this.root.querySelector(":focus");
+    if (focused) focused.blur();
+    this.stopBreathe();
+    const dur = this.reduce ? 0 : 0.32;
+    if (this.tl) this.tl.kill();
+    this.tl = gsap.timeline({
+      defaults: { duration: dur, ease: "power2.inOut" },
+    });
+    this.tl.to(this.hintDown, {
+      autoAlpha: 0,
+      duration: this.reduce ? 0 : 0.14,
+      ease: "power2.in",
+    }, 0);
+    this.tl.to(this.panel, { height: 0 }, 0);
+    this.tl.set(this.panel, { autoAlpha: 0 });
+    this.tl.add(() => this.panel.setAttribute("aria-hidden", "true"));
   },
 };

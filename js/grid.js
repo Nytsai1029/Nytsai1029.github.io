@@ -5,18 +5,26 @@ App.mouse = {
   y: innerHeight / 2,
   tx: innerWidth / 2,
   ty: innerHeight / 2,
+  live: false,
 };
 
 App.grid = {
   canvas: null,
   ctx: null,
+  reduce: false,
 
   start() {
     this.canvas = document.getElementById("grid");
     this.ctx = this.canvas.getContext("2d");
+    this.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.resize();
     window.addEventListener("resize", () => this.resize());
     window.addEventListener("pointermove", (e) => {
+      if (!App.mouse.live) {
+        App.mouse.x = e.clientX;
+        App.mouse.y = e.clientY;
+      }
+      App.mouse.live = true;
       App.mouse.tx = e.clientX;
       App.mouse.ty = e.clientY;
     }, { passive: true });
@@ -52,13 +60,24 @@ App.grid = {
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    const gap = 28;
+    const bounds = this.canvas.getBoundingClientRect();
+    const mx = mouse.tx - bounds.left;
+    const my = mouse.ty - bounds.top;
+    const G = App.GRID;
+    const gap = G.gap;
     const cols = Math.ceil(innerWidth / gap) + 1;
     const rows = Math.ceil(innerHeight / gap) + 1;
     const t = (time || 0) * 0.00025;
     const radius = Math.min(innerWidth, innerHeight) * 0.34;
+    const tilt = (G.tiltDeg * Math.PI) / 180;
+    const cs = Math.cos(tilt);
+    const sn = Math.sin(tilt);
+    const waveK = (Math.PI * 2) / G.waveLen;
+    const omega = (Math.PI * 2) / (G.wavePeriod * 1000);
+    const waveAmp = this.reduce ? 0 : G.waveAmp;
+    const phaseT = (time || 0) * omega;
 
-    ctx.strokeStyle = "rgba(18, 18, 18, 0.045)";
+    ctx.strokeStyle = `rgba(18, 18, 18, ${G.line})`;
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let i = 0; i < cols; i++) {
@@ -73,21 +92,29 @@ App.grid = {
 
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
-        let x = i * gap;
-        let y = j * gap;
-        const dx = x - mouse.x;
-        const dy = y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        const influence = Math.max(0, 1 - dist / radius);
-        const eased = influence * influence * (3 - 2 * influence);
-        const angle = Math.atan2(dy, dx) || 0;
-        x += Math.cos(angle) * eased * 18;
-        y += Math.sin(angle) * eased * 18;
+        const gx = i * gap;
+        const gy = j * gap;
+        const swell = waveAmp ? Math.sin((gx * cs + gy * sn) * waveK - phaseT) : 0;
+        let x = gx + cs * swell * waveAmp;
+        let y = gy + sn * swell * waveAmp;
+        let eased = 0;
+
+        if (mouse.live) {
+          const dx = gx - mx;
+          const dy = gy - my;
+          const dist = Math.hypot(dx, dy);
+          const influence = Math.max(0, 1 - dist / radius);
+          eased = influence * influence * (3 - 2 * influence);
+          const angle = Math.atan2(dy, dx) || 0;
+          x += Math.cos(angle) * eased * 18;
+          y += Math.sin(angle) * eased * 18;
+        }
 
         const major = i % 4 === 0 || j % 4 === 0;
         const shimmer = 0.84 + 0.16 * Math.sin(t + i * 0.35 + j * 0.41);
-        const alpha = (major ? 0.22 : 0.12) * shimmer + eased * 0.62;
-        const size = (major ? 1.7 : 1.25) + eased * 2.1;
+        const crest = (swell + 1) * 0.5;
+        const alpha = Math.min(1, (major ? G.dotHi : G.dotLo) * shimmer + eased * 0.62 + crest * G.waveAlpha);
+        const size = (major ? 1.7 : 1.25) + eased * 2.1 + crest * 0.35;
 
         ctx.fillStyle = `rgba(18, 18, 18, ${alpha})`;
         ctx.fillRect(x - size / 2, y - size / 2, size, size);

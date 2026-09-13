@@ -55,6 +55,18 @@ App.INTRO = {
   wipeAngle: 20,
 };
 
+App.GRID = {
+  gap: 28,
+  tiltDeg: 15,
+  wavePeriod: 3,
+  waveAmp: 5.2,
+  waveLen: 980,
+  dotHi: 0.32,
+  dotLo: 0.2,
+  line: 0.07,
+  waveAlpha: 0.18,
+};
+
 App.WHEEL = {
   count: 5,
   yGap: { compact: 56, open: 50 },
