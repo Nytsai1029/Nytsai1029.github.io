@@ -138,7 +138,7 @@ Noto 的 latin 与 CJK 必须分开声明并带 `unicode-range`，否则西文�
 
 ### GSAP
 
-只用 `js/vendor/` 这四份，不要再引 `cdn.jsdelivr.net` / `cdnjs`：
+版本 **3.15.0**。只用 `js/vendor/` 这四份 UMD，与全局 `npm install -g gsap@3.15.0` 的 `dist/` 对齐。不要再引 `cdn.jsdelivr.net` / `cdnjs`。升级时先更新全局包，再覆盖这四份：
 
 - `js/vendor/gsap.min.js`
 - `js/vendor/ScrollTrigger.min.js`
