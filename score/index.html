@@ -7,11 +7,15 @@
   <style>
     html.intro-lock, html.intro-lock body { overflow: hidden; height: 100%; }
     #intro { position: fixed; inset: 0; z-index: 200; background: #fff; }
+    .intro-bar { position: absolute; left: 50%; top: 50%; width: 70vw; height: 10px; background: #e8e8e8; transform: translate(-50%, -50%); overflow: hidden; }
+    .intro-bar-fill { display: block; width: 100%; height: 100%; background: #8d8d8d; transform: scaleX(0); transform-origin: left center; }
   </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+KR:wght@300;400&family=Noto+Serif+SC:wght@300;400&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+KR:wght@300;400&family=Noto+Serif+SC:wght@300;400&family=Noto+Serif+TC:wght@300;400&display=swap" media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Noto+Serif+KR:wght@300;400&family=Noto+Serif+SC:wght@300;400&family=Noto+Serif+TC:wght@300;400&display=swap" />
+  </noscript>
 </head>
 <body>
   <div id="intro" aria-hidden="true">
@@ -121,12 +125,14 @@
     </div>
   </div>
 
-  <script src="score-data.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Observer.min.js"></script>
+  <script src="js/vendor/gsap.min.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/intro.js"></script>
+  <script>if (window.App && App.intro) App.intro.start();</script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/ScrollSmoother.min.js"></script>
+  <script src="js/vendor/Observer.min.js"></script>
+  <script src="score-data.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/works-data.js"></script>
   <script src="js/grid.js"></script>
@@ -134,7 +140,6 @@
   <script src="js/wheel.js"></script>
   <script src="js/works.js"></script>
   <script src="js/timeline.js"></script>
-  <script src="js/intro.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
