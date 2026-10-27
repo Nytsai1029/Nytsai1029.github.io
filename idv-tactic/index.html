@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#181818" />
+    <meta name="description" content="Plan Identity V matches: kite routes, cipher priority, rescues and hunter patrols." />
+    <title>IDV Tactics Board</title>
+    <script>
+      // Apply the saved theme before first paint; src/lib/state/theme.svelte.ts takes over.
+      try {
+        var theme = localStorage.getItem('idv-tactics.theme')
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+        }
+        document.documentElement.dataset.theme = theme
+      } catch (error) {}
+    </script>
+    <script type="module" crossorigin src="./assets/index-IqpgUMIC.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BHr_GlSF.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
